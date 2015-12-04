@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 
 
 public class Client extends JFrame{
-    private int bajs;
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
