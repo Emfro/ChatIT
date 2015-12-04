@@ -1,5 +1,5 @@
 
-package chat;
+package ChatIT;
 
 import java.io.*;
 import java.net.*;

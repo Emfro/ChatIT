@@ -1,6 +1,6 @@
 
 
-package chat;
+package ChatIT;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
