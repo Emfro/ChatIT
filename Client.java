@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 
-
 public class Client extends JFrame{
     private Socket socket;
     private ObjectOutputStream out;
@@ -35,7 +34,7 @@ public class Client extends JFrame{
         messageHandler handler = new messageHandler(in);
         handler.start();
         
-        while(!textLine.equals("done")) {
+        while(!textLine.equals(".done")) {
         
             textLine = sc.nextLine();
                 
@@ -49,11 +48,11 @@ public class Client extends JFrame{
             
             
         }
-                    
+        handler.stop();            
         try {
             closeConnection();
         } catch (IOException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("IO closeConnection: " + ex);
         }
         
     }
@@ -72,7 +71,7 @@ private void closeConnection() throws IOException {
 }
 
     public static void main(String[] args) throws IOException {
-        Client client = new Client(InetAddress.getByName("192.168.1.68"));
+        Client client = new Client(InetAddress.getLocalHost());
     }
 }
 

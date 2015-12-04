@@ -29,6 +29,7 @@ public class messageHandler extends Thread{
             } catch (ClassNotFoundException ex) {
                 System.out.println("Wont happen for Strings...");
             }
-            System.out.println(message);
+            if(!message.equals("") && !message.equals("\n")) System.out.println(message);
+            
     }
 }

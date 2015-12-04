@@ -54,6 +54,8 @@ public class Server {
     
     private static void setLists(List<chatClient> al) {
         for (int i = 0; i < al.size(); i++) {
+            if(!al.get(i).isAlive()) al.remove(i);
+            
             al.get(i).setChatlist(al);
         }
     }
@@ -71,7 +73,7 @@ public class Server {
              c.start();
              chattLista.add(c);
              setLists(chattLista);
-             //broadcast(chattLista);
+             
         }
         
     }

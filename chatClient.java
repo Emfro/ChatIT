@@ -40,19 +40,20 @@ public class chatClient extends Thread{
                 } catch (ClassNotFoundException ex) {
                     System.out.println("händer int");
                 }
-                if(text.contains("HowMany?")) {NumberOfParticipants();}
-                chatting = !text.equals("AXEL: done");
+                if(text.toLowerCase().contains(".howmany?")) {NumberOfParticipants();}
+                chatting = !text.contains(".done");
+                
                 broadcast(text);
             }
         
-        System.out.println("CLient " + connection.getInetAddress() +  " has disconnected!");
+        System.out.println("Client " + connection.getInetAddress() +  " has disconnected!");
         
             try {
                 closeConnection();
             } catch (IOException ex) {
                 System.out.println("IO closeConnections: " + ex);
             }
-            
+           
         }
         
         public String getText(){
