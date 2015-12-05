@@ -15,7 +15,7 @@ public class Server {
     private static Socket connection;
     private static Socket newClient;
     //private static ArrayList<chatClient> al;
-     
+    public static List<chatClient> chattLista = Collections.synchronizedList(new ArrayList<chatClient>());
     
     public Server() throws IOException, ClassNotFoundException {
         System.out.println("Setting up server on: " + InetAddress.getLocalHost());
@@ -51,28 +51,57 @@ public class Server {
         }
     }
     */
-    
-    private static void setLists(List<chatClient> al) {
-        for (int i = 0; i < al.size(); i++) {
-            if(!al.get(i).isAlive()) al.remove(i);
+        private static class listHandler extends Thread{
             
+            public void run() {
+                while(true) {
+                    setLists();
+                }
+            }
+            
+            private static void setLists() {
+        
+        for (int i = 0; i < chattLista.size(); i++) {
+            
+            if(!chattLista.get(i).isAlive()) chattLista.remove(i);        
+        }
+        /*for (int i = 0; i < al.size(); i++) {
+            al.get(i).setChatlist(al);
+        }*/
+         }
+   }
+        
+        
+    /* private static void setLists(List<chatClient> al) {
+        
+        for (int i = 0; i < al.size(); i++) {
+            if(!al.get(i).isAlive()) al.remove(i);        
+        }
+        for (int i = 0; i < al.size(); i++) {
             al.get(i).setChatlist(al);
         }
     }
-            
+    */
+    public List getChatList() {
+        return chattLista;
+    }        
+    
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         
         Server server = new Server();
-        List<chatClient> chattLista = Collections.synchronizedList(new ArrayList<chatClient>());
+        listHandler listhandler = new listHandler();
+        listhandler.start();
         
         
        
-         while(true) {    
+         while(true) {
+             
+             
              newClient = waitForConnection();
              chatClient c = new chatClient(newClient);    
              c.start();
              chattLista.add(c);
-             setLists(chattLista);
+             
              
         }
         

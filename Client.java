@@ -1,22 +1,26 @@
 
 package ChatIT;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
+import static java.lang.Thread.sleep;
 import java.net.*;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
+import javax.swing.*;
 
-public class Client extends JFrame{
+public class Client extends JFrame implements ActionListener{
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private InetAddress serverIP;
+    private static ChatWindow c;
     
     Scanner sc = new Scanner(System.in);
     
-    public Client(InetAddress host)  {
+    public Client(InetAddress host) throws InterruptedException  {
         serverIP = host;
         try {
             socket = new Socket(host, 6700);
@@ -27,27 +31,31 @@ public class Client extends JFrame{
         
         String alias = "";
         String textLine = "";
-        String message = "";
         System.out.println("Choose an alias: ");
         alias = sc.nextLine();
         
-        messageHandler handler = new messageHandler(in);
+        messageHandler handler = new messageHandler(in, c.getMsgarea());
         handler.start();
         
         while(!textLine.equals(".done")) {
         
-            textLine = sc.nextLine();
-                
-            try {
+            //textLine = sc.nextLine();
+            textLine = c.msg;
+            sleep(10);
+            if(!textLine.equals("")) {
+                try {
                  
-                 out.writeObject(alias + "> " + textLine);
-                 out.flush();
-            } catch (IOException ex) {
+                    out.writeObject(alias + "> " + textLine);
+                    out.flush();
+                    c.setMsgWrite();
+                    c.setMsg();
+                } catch (IOException ex) {
                 System.out.println("IO: " + ex);   
+                }
             }
             
-            
         }
+        
         handler.stop();            
         try {
             closeConnection();
@@ -70,8 +78,23 @@ private void closeConnection() throws IOException {
         if(socket != null) socket.close();
 }
 
-    public static void main(String[] args) throws IOException {
-        Client client = new Client(InetAddress.getLocalHost());
+    public static void main(String[] args) throws IOException, InterruptedException {
+        
+        c = new ChatWindow();
+        c.setVisible(true);
+        c.setResizable(false);
+        c.setLocation(500, 200);
+        c.getMsgarea().setText("");
+        c.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Client client = new Client(InetAddress.getByName("192.168.1.71"));
+        //Client client = new Client(InetAddress.getLocalHost());
+        
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
 

@@ -14,7 +14,7 @@ public class chatClient extends Thread{
         private ObjectInputStream input;
         private ObjectOutputStream output;
         private Socket connection;
-        private List<chatClient> chattLista = Collections.synchronizedList(new ArrayList<chatClient>());
+        //private List<chatClient> chattLista = Collections.synchronizedList(new ArrayList<chatClient>());
         boolean chatting = true;          
         private String text;
         
@@ -41,9 +41,10 @@ public class chatClient extends Thread{
                     System.out.println("händer int");
                 }
                 if(text.toLowerCase().contains(".howmany?")) {NumberOfParticipants();}
+                broadcast(text);
                 chatting = !text.contains(".done");
                 
-                broadcast(text);
+                
             }
         
         System.out.println("Client " + connection.getInetAddress() +  " has disconnected!");
@@ -67,9 +68,9 @@ public class chatClient extends Thread{
            System.out.println("Server streams setup!");
         }
         
-        public void setChatlist(List<chatClient> al) {
-            this.chattLista = al;
-        }
+        //public void setChatlist(List<chatClient> al) {
+          //  this.chattLista = al;
+        //}
         
         private void closeConnection() throws IOException {
             if(input != null) input.close();
@@ -79,7 +80,7 @@ public class chatClient extends Thread{
         
         private void NumberOfParticipants(){
             try {          
-                output.writeObject(Integer.toString(chattLista.size()) + " clients are currently connected!");
+                output.writeObject(Integer.toString(Server.chattLista.size()) + " clients are currently connected!");
             } catch (IOException ex) {
                 System.out.println("IO NumberOfParticipants: " + ex);
             }
@@ -97,8 +98,9 @@ public class chatClient extends Thread{
         }
         
         private void broadcast(String text) {
-            for (int i = 0; i < chattLista.size(); i++) {
-                chattLista.get(i).receive(text);
+            
+            for (int i = 0; i < Server.chattLista.size(); i++) {
+                Server.chattLista.get(i).receive(text);
             }
     }
 }

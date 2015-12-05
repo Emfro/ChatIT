@@ -4,14 +4,17 @@ package ChatIT;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import javax.swing.JTextArea;
 
 public class messageHandler extends Thread{
     
     private ObjectInputStream in;
+    private JTextArea text;
     
-    public messageHandler(ObjectInputStream in) {
+    public messageHandler(ObjectInputStream in, JTextArea text) {
         this.in = in;
-    }
+        this.text = text;
+    }   
     
     
     public void run() {
@@ -29,7 +32,7 @@ public class messageHandler extends Thread{
             } catch (ClassNotFoundException ex) {
                 System.out.println("Wont happen for Strings...");
             }
-            if(!message.equals("") && !message.equals("\n")) System.out.println(message);
+            if(!message.equals("") && !message.equals("\n")) text.append(message + "\n");
             
     }
 }
