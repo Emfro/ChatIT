@@ -12,6 +12,8 @@ import static java.lang.Thread.sleep;
 import java.net.*;
 import java.util.Scanner;
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
+import static javax.swing.text.DefaultCaret.ALWAYS_UPDATE;
 
 public class Client extends JFrame implements ActionListener{
     private Socket socket;
@@ -89,7 +91,8 @@ private void closeConnection() throws IOException {
         c.setLocation(500, 200);
         c.getRootPane().setDefaultButton(c.messageSend);
         c.setDefaultCloseOperation(EXIT_ON_CLOSE);
-     
+        DefaultCaret caret = (DefaultCaret) c.getMsgarea().getCaret();
+        caret.setUpdatePolicy(ALWAYS_UPDATE);
         //Client client = new Client(InetAddress.getByName("192.168.1.71"));
         Client client = new Client(InetAddress.getLocalHost());
         
