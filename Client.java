@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
 import static java.lang.Thread.sleep;
 import java.net.*;
@@ -41,6 +43,7 @@ public class Client extends JFrame implements ActionListener{
         
             //textLine = sc.nextLine();
             textLine = c.msg;
+            
             sleep(10);
             if(!textLine.equals("")) {
                 try {
@@ -84,10 +87,11 @@ private void closeConnection() throws IOException {
         c.setVisible(true);
         c.setResizable(false);
         c.setLocation(500, 200);
-        c.getMsgarea().setText("");
+        c.getRootPane().setDefaultButton(c.messageSend);
         c.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        Client client = new Client(InetAddress.getByName("192.168.1.71"));
-        //Client client = new Client(InetAddress.getLocalHost());
+     
+        //Client client = new Client(InetAddress.getByName("192.168.1.71"));
+        Client client = new Client(InetAddress.getLocalHost());
         
     }
 

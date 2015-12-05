@@ -5,6 +5,7 @@
  */
 package ChatIT;
 
+
 import javax.swing.JTextArea;
 
 /**
@@ -23,6 +24,8 @@ public class ChatWindow extends javax.swing.JFrame {
     /**
      * Creates new form ChatWindow
      */
+    
+ 
     public ChatWindow() {
         initComponents();
     }
@@ -85,13 +88,15 @@ public class ChatWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void messageSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageSendActionPerformed
-
+        
         msg = messageWrite.getText();
         
     }//GEN-LAST:event_messageSendActionPerformed
     public JTextArea getMsgarea() {
           return messageArea;
     }
+  
+            
     /**
      * @param args the command line arguments
      */
@@ -118,11 +123,13 @@ public class ChatWindow extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+   
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ChatWindow().setVisible(true);
+                
+              
             }
         });
     }
@@ -130,7 +137,7 @@ public class ChatWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTextArea messageArea;
-    private javax.swing.JButton messageSend;
+    public javax.swing.JButton messageSend;
     private javax.swing.JTextField messageWrite;
     // End of variables declaration//GEN-END:variables
 }

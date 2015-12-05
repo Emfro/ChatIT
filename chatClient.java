@@ -14,7 +14,6 @@ public class chatClient extends Thread{
         private ObjectInputStream input;
         private ObjectOutputStream output;
         private Socket connection;
-        //private List<chatClient> chattLista = Collections.synchronizedList(new ArrayList<chatClient>());
         boolean chatting = true;          
         private String text;
         
@@ -68,9 +67,6 @@ public class chatClient extends Thread{
            System.out.println("Server streams setup!");
         }
         
-        //public void setChatlist(List<chatClient> al) {
-          //  this.chattLista = al;
-        //}
         
         private void closeConnection() throws IOException {
             if(input != null) input.close();

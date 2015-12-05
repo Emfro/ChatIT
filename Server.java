@@ -30,28 +30,7 @@ public class Server {
         return connection;
     }
     
-    
-   /* 
-    private static void broadcast(List<chatClient> al){
-        String text = null;
-        
-        for (int j = 0; j < al.size(); j++) {
-            
-            
-            if(al.get(j).getText() != null && al.get(j).getText().equals("\n"))
-            {
-            
-            text = al.get(j).getText();
-             System.out.println(text);
-            for (int i = 0; i < al.size(); i++) {
-                al.get(i).receive(text);
-            }
-            
-            }         
-        }
-    }
-    */
-        private static class listHandler extends Thread{
+    private static class listHandler extends Thread{
             
             public void run() {
                 while(true) {
@@ -65,23 +44,11 @@ public class Server {
             
             if(!chattLista.get(i).isAlive()) chattLista.remove(i);        
         }
-        /*for (int i = 0; i < al.size(); i++) {
-            al.get(i).setChatlist(al);
-        }*/
          }
    }
         
         
-    /* private static void setLists(List<chatClient> al) {
-        
-        for (int i = 0; i < al.size(); i++) {
-            if(!al.get(i).isAlive()) al.remove(i);        
-        }
-        for (int i = 0; i < al.size(); i++) {
-            al.get(i).setChatlist(al);
-        }
-    }
-    */
+  
     public List getChatList() {
         return chattLista;
     }        
