@@ -42,7 +42,7 @@ public class chatClient extends Thread{
                 if(text.toLowerCase().contains(".howmany?")) {NumberOfParticipants();}
                 broadcast(text);
                 chatting = !text.contains(".done");
-                
+               
                 
             }
         
