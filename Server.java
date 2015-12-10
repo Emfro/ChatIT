@@ -20,10 +20,10 @@ public class Server {
     public Server() throws IOException, ClassNotFoundException {
         System.out.println("Setting up server on: " + InetAddress.getLocalHost());
         
-        server = new ServerSocket(6700, 100, InetAddress.getLocalHost());
-        
-        
+        server = new ServerSocket(6700, 100, InetAddress.getLocalHost());       
     }  
+    
+    
     private static Socket waitForConnection() throws IOException{
         connection = server.accept();
         System.out.println("Connected to " + connection.getInetAddress());
@@ -34,11 +34,11 @@ public class Server {
             
             public void run() {
                 while(true) {
-                    setLists();
+                    setList();
                 }
             }
             
-            private static void setLists() {
+            private static void setList() {
         
         for (int i = 0; i < chattLista.size(); i++) {
             
@@ -62,8 +62,7 @@ public class Server {
         
        
          while(true) {
-             
-             
+           
              newClient = waitForConnection();
              chatClient c = new chatClient(newClient);    
              c.start();

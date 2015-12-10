@@ -93,10 +93,12 @@ public class chatClient extends Thread{
             
         }
         
-        private void broadcast(String text) {
-            
+        private synchronized void broadcast(String text) {
+                   
             for (int i = 0; i < Server.chattLista.size(); i++) {
                 Server.chattLista.get(i).receive(text);
             }
+          
+            
     }
 }
