@@ -98,7 +98,7 @@ public class chatClient extends Thread{
             for (int i = 0; i < Server.chattLista.size(); i++) {
                 Server.chattLista.get(i).receive(text);
             }
-          
+          return;
             
     }
 }

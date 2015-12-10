@@ -32,6 +32,7 @@ public class Client extends JFrame implements ActionListener{
             }
             String alias = "";
             String textLine = "";
+            System.out.println("To exit, write '.done'.");
             System.out.println("Choose an alias: ");
             alias = sc.nextLine();
             messageHandler handler = new messageHandler(in, c.getMsgarea());
@@ -65,21 +66,22 @@ public class Client extends JFrame implements ActionListener{
                 } catch (IOException ex) {
                 System.out.println("IO closeConnection: " + ex);
                 }
+                c.dispose();
               
            
- }
+        }
     
-private void setStreams() throws IOException {
-      out = new ObjectOutputStream(socket.getOutputStream());
-      out.flush();
-      in = new ObjectInputStream(socket.getInputStream());
-      System.out.println("Client streams setup!");
-}
-private void closeConnection() throws IOException {
-        if(in != null) in.close();
-        if(out != null)out.close();
-        if(socket != null) socket.close();
-}
+    private void setStreams() throws IOException {
+          out = new ObjectOutputStream(socket.getOutputStream());
+          out.flush();
+          in = new ObjectInputStream(socket.getInputStream());
+          System.out.println("Client streams setup!");
+    }
+    private void closeConnection() throws IOException {
+            if(in != null) in.close();
+            if(out != null)out.close();
+            if(socket != null) socket.close();
+    }
 
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -89,7 +91,7 @@ private void closeConnection() throws IOException {
         c.setResizable(false);
         c.setLocation(500, 200);
         c.getRootPane().setDefaultButton(c.messageSend);
-        c.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        c.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         
         DefaultCaret caret = (DefaultCaret) c.getMsgarea().getCaret();
         caret.setUpdatePolicy(ALWAYS_UPDATE);
